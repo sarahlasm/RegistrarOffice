@@ -37,7 +37,7 @@ int main(int argc, char** argv)
       {
         if (!windows[i].isOccupied)
         {
-          windows[i].acceptStudent();
+          windows[i].acceptStudent((studentQueue->remove()));
           break;
         }
       }

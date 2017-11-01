@@ -46,7 +46,7 @@ void Queue<T>::insert(T data )
   if (!isFull())
   {
     myQueue->insertAfter(tail++, data);
-    if (tail == max && myQueue->front->data == NULL)
+    if (tail == max && *(myQueue->front->data) == NULL)
       tail = -1;
   }
   else
