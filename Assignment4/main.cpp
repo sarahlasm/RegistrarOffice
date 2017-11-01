@@ -6,6 +6,7 @@
     wait. Ensure others have theirs updated too.
   - Keep track of all the data we need to.
   - Perform data analysis at the end.
+  - Fix destructors.
 */
 
 #include "Queue.h"
