@@ -7,6 +7,7 @@ class Student
 public:
   Student(int timeN);
   ~Student();
+  void increaseTimeWaited();
 private:
   int timeNeeded;
   int timeWaited;
@@ -21,4 +22,9 @@ Student::Student(int timeN)
 Student::~Student()
 {
   cout << "object deleted";
+}
+
+void Student::increaseTimeWaited()
+{
+  timeWaited++;
 }

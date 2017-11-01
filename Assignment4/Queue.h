@@ -46,7 +46,7 @@ void Queue<T>::insert(T data )
   if (!isFull())
   {
     myQueue->insertAfter(tail++, data);
-    if (tail == max && *(myQueue->front->data) == NULL)
+    if (tail == max && myQueue->front == NULL)
       tail = -1;
   }
   else
@@ -62,7 +62,7 @@ T Queue<T>::remove()
     ++head;
     --numElements;
     return temp;
-    if (head == max && myQueue->front->data == NULL)
+    if (head == max && myQueue->front == NULL)
       head = 0;
   }
   else
