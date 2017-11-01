@@ -1,6 +1,5 @@
 #include "Queue.h"
 #include "Window.h"
-#include "Student.h"
 #include <fstream>
 #include <iostream>
 #include <string>
