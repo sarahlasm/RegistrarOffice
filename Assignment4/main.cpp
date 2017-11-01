@@ -27,13 +27,13 @@ int main(int argc, char** argv)
       Student* s = new Student(stoi(input));
       studentQueue->insert(*s);
     }
-    while (!studentQueue.isEmpty())
+    while (!studentQueue->isEmpty())
     {
       for (int i = 0; i < windows.length(); ++i)
       {
-        if (!window[i].isOccupied)
+        if (!windows[i].isOccupied)
         {
-          window[i].acceptStudent();
+          windows[i].acceptStudent();
           break;
         }
       }
