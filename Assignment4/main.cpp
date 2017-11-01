@@ -1,7 +1,6 @@
 /**
 @TODO
   - Fix compiler error
-  - Currently, the student is accepted, but does not leave when their time is up. Implement that.
   - Currently, only the first student in line has their timeWaited increased when they are forced to
     wait. Ensure others have theirs updated too.
   - Keep track of all the data we need to.
@@ -61,9 +60,16 @@ int main(int argc, char** argv)
     {
       for (int i = 0; i < numWindows; ++i)
       {
+        if (windows[i].timeDone == currTime)
+        {
+          windows[i].studentLeaves();
+          windows[i].idleTime = 0;
+          windows[i].timeDone = -1;
+        }
         if (!windows[i].isOccupied)
         {
           windows[i].acceptStudent((studentQueue->peek()));
+          windows[i].timeDone = (studentQueue->peek().timeNeeded) + currTime;
           totalIdleTime += windows[i].idleTime;
           totalStudentWaitTime += ((studentQueue->remove()).timeWaited);
           studentsServed++;
