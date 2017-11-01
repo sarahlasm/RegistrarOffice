@@ -17,7 +17,7 @@ public:
 template <class T>
 ListNode<T>::ListNode()
 {
-
+  data = NULL;
 }
 
 template <class T>

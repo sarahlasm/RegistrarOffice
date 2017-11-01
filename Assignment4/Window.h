@@ -5,7 +5,7 @@ class Window
 public:
   Window();
   ~Window();
-  void acceptStudent(Student* s);
+  void acceptStudent(Student s);
     bool isOccupied;
   void studentLeaves();
 private:
@@ -23,9 +23,9 @@ Window::~Window()
 
 }
 
-void Window::acceptStudent(Student* s)
+void Window::acceptStudent(Student s)
 {
-  student = s;
+  student = &s;
   isOccupied = true;
 }
 

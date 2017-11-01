@@ -21,6 +21,7 @@ int main(int argc, char** argv)
   int numWindows = stoi(input);
   int currTime = 0;
   Window *windows = new Window[numWindows];
+  Student *s;
   while (getline(inFile, input))
   {
     currTime = stoi(input);
@@ -28,7 +29,7 @@ int main(int argc, char** argv)
     for (int i = 0; i < stoi(input); ++i)
     {
       getline(inFile, input);
-      Student* s = new Student(stoi(input));
+      s = new Student(stoi(input));
       studentQueue->insert(*s);
     }
     while (!studentQueue->isEmpty())
@@ -37,7 +38,11 @@ int main(int argc, char** argv)
       {
         if (!windows[i].isOccupied)
         {
-          windows[i].acceptStudent();
+<<<<<<< HEAD
+          windows[i].acceptStudent(s);
+=======
+          windows[i].acceptStudent((studentQueue->remove()));
+>>>>>>> b331baa5ba2285a0f70f2b52bf0166877ddaef6c
           break;
         }
       }
