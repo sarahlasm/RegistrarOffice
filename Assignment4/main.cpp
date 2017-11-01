@@ -20,7 +20,7 @@ int main(int argc, char** argv)
   getline(inFile, input);
   int numWindows = stoi(input);
   int currTime = 0;
-  Window windows[numWindows];
+  Window *windows = new Window[numWindows];
   while (getline(inFile, input))
   {
     currTime = stoi(input);
