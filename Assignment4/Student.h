@@ -8,7 +8,6 @@ public:
   Student(int timeN);
   ~Student();
   void increaseTimeWaited();
-private:
   int timeNeeded;
   int timeWaited;
 };

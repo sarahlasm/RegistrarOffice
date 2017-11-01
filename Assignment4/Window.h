@@ -6,8 +6,9 @@ public:
   Window();
   ~Window();
   void acceptStudent(Student s);
-    bool isOccupied;
+  bool isOccupied;
   void studentLeaves();
+  int idleTime;
 private:
   Student* student;
 };
@@ -16,6 +17,7 @@ Window::Window()
 {
   isOccupied = false;
   student = NULL;
+  idleTime = 0;
 }
 
 Window::~Window()
