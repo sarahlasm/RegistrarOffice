@@ -4,12 +4,12 @@ using namespace std;
 
 class Student
 {
-public:
-  Student(int timeN);
-  ~Student();
-private:
-  int timeNeeded;
-  int timeWaited;
+  public:
+    Student(int timeN);
+    ~Student();
+  private:
+    int timeNeeded;
+    int timeWaited;
 };
 
 Student::Student(int timeN)
@@ -20,5 +20,5 @@ Student::Student(int timeN)
 
 Student::~Student()
 {
-
+  cout << "object deleted";
 }

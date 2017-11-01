@@ -1,6 +1,11 @@
 #include "Queue.h"
 #include "Window.h"
+#include "Student.h"
 #include <fstream>
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 int main(int argc, char** argv)
 {
@@ -16,7 +21,7 @@ int main(int argc, char** argv)
   getline(inFile, input);
   int numWindows = stoi(input);
   int currTime = 0;
-  Window windows[] = new Window[numWindows];
+  Window windows[numWindows];
   while (getline(inFile, input))
   {
     currTime = stoi(input);
@@ -29,7 +34,7 @@ int main(int argc, char** argv)
     }
     while (!studentQueue->isEmpty())
     {
-      for (int i = 0; i < windows.length(); ++i)
+      for (int i = 0; i < numWindows; ++i)
       {
         if (!windows[i].isOccupied)
         {
