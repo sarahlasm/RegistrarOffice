@@ -21,21 +21,15 @@ int main(int argc, char** argv)
   int numWindows = stoi(input);
   int currTime = 0;
   Window *windows = new Window[numWindows];
-<<<<<<< Updated upstream
   Student *s;
-  while (getline(inFile, input))
-=======
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
->>>>>>> Stashed changes
   {
     if (currInput == -1)
     {
       getline(inFile, input);
-<<<<<<< Updated upstream
       s = new Student(stoi(input));
       studentQueue->insert(*s);
-=======
       currInput = stoi(input);
     }
     if (currTime == currInput)
@@ -48,7 +42,6 @@ int main(int argc, char** argv)
         Student* s = new Student(stoi(input));
         studentQueue->insert(*s);
       }
->>>>>>> Stashed changes
     }
     while (!studentQueue->isEmpty())
     {
@@ -56,11 +49,7 @@ int main(int argc, char** argv)
       {
         if (!windows[i].isOccupied)
         {
-<<<<<<< HEAD
-          windows[i].acceptStudent(s);
-=======
           windows[i].acceptStudent((studentQueue->remove()));
->>>>>>> b331baa5ba2285a0f70f2b52bf0166877ddaef6c
           break;
         }
       }
