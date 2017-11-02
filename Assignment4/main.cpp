@@ -31,7 +31,7 @@ int main(int argc, char** argv)
   getline(inFile, input);
   int numWindows = stoi(input);
   int currTime = 0;
-  Window *windows = new Window(numWindows);
+  Window *windows = new Window[numWindows];
   Student *s;
   Statistics stats = new Statistics();
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
       {
         getline(inFile, input);
         Student* s = new Student(stoi(input));
-        s.timeNeeded += currInput;
+        s->timeNeeded += currInput;
         for (int j = 0; j < numWindows; ++j)
         {
           if (!windows[j].isOccupied)
@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 
       for (int i = 0; i < numWindows; ++i)
       {
-        if (windows[i].timeNeeded == currTime)
+        if (windows[i]->timeNeeded == currTime)
         {
           stats.takeStudent(windows[i].studentLeaves());
         }

@@ -40,5 +40,5 @@ Student Window::studentLeaves()
 {
   //student = NULL;
   isOccupied = false;
-  return student;
+  return &student;
 }
