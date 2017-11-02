@@ -8,6 +8,8 @@
   - Perform data analysis at the end.
   - Fix destructors.
   - What happens if all the windows are full? Currently, nothing good.
+  - If there's a long wait time between two students, the program will keep reading the list.
+    Fix that.
 */
 
 #include "Queue.h"
@@ -41,35 +43,41 @@ int main(int argc, char** argv)
   {
     if (currInput != currTime) //beginning
     {
-      getline(inFile, input);
+      if (getline(inFile, input))
+      {
       /*s = new Student(stoi(input));
       studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
-      currInput = stoi(input);
-      cout << currInput;
+        currInput = stoi(input);
+        cout << currInput;
+      }
+      else return 0;
     }
     if (currTime == currInput) //hits 1
     {
       //currInput = -1;
-      getline(inFile, input);
-      string studentInput;
-      for (int i = 0; i < stoi(input); ++i)
+      if (getline(inFile, input))
       {
-        cout << input;
-        getline(inFile, studentInput);
-        Student* s = new Student(stoi(studentInput));
-        s->timeNeeded += currInput;
-        for (int j = 0; j < numWindows; ++j)
+        string studentInput;
+        for (int i = 0; i < stoi(input); ++i)
         {
-          if (!windows[j].isOccupied)
+          cout << input;
+          getline(inFile, studentInput);
+          Student* s = new Student(stoi(studentInput));
+          s->timeNeeded += currInput;
+          for (int j = 0; j < numWindows; ++j)
           {
-            cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
-            stats->takeIdle(windows[j].acceptStudent(*s));
-            break;
+            if (!windows[j].isOccupied)
+            {
+              cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
+              stats->takeIdle(windows[j].acceptStudent(*s));
+              break;
+            }
+            if (j == numWindows - 1)
+              studentQueue->insert(*s);
           }
-          if (j == numWindows - 1)
-            studentQueue->insert(*s);
         }
       }
+      else return 0;
     }
     while (!studentQueue->isEmpty())
     {
@@ -96,6 +104,5 @@ int main(int argc, char** argv)
     }
     currTime++;
     cout << "I've reached the end of the loop! Hooray! xoxo\n";
-    if (currTime == 4) return -1; //DEBUG
   }
 }
