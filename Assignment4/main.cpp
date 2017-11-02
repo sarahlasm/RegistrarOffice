@@ -31,26 +31,20 @@ int main(int argc, char** argv)
   getline(inFile, input);
   int numWindows = stoi(input);
   int currTime = 0;
-  Window *windows = new Window[numWindows];
+  Window *windows = new Window(numWindows);
   Student *s;
+  Statistics stats = new Statistics();
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
-  /*int totalIdleTime = 0;
-  int longestIdleTime = 0;
-  int numOverFive = 0;
-  int totalStudentWaitTime = 0;
-  int longestStudentWaitTime = 0;
-  int numOverTen = 0;
-  int studentsServed = 0;*/
   while (true)
   {
-    if (currInput == -1)
+    if (currInput == -1) //beginning
     {
       getline(inFile, input);
       /*s = new Student(stoi(input));
       studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
       currInput = stoi(input);
     }
-    if (currTime == currInput)
+    if (currTime == currInput) //hits 1
     {
       //currInput = -1;
       getline(inFile, input);
@@ -58,31 +52,38 @@ int main(int argc, char** argv)
       {
         getline(inFile, input);
         Student* s = new Student(stoi(input));
-        studentQueue->insert(*s);
-        stats.totalStudents++;
+        s.timeNeeded += currInput;
+        for (int j = 0; j < numWindows; ++j)
+        {
+          if (!windows[j].isOccupied)
+          {
+            stats.takeIdle(windows[j].acceptStudent(s));
+          }
+          else
+            studentQueue->insert(*s);
+        }
+        delete &s; //necessary to get rid of this student object?
       }
     }
-    while (currTime <= currInput || !studentQueue->isEmpty())
+    while (!studentQueue->isEmpty())
     {
+
       for (int i = 0; i < numWindows; ++i)
       {
-        if (windows[i].timeDone == currTime)
+        if (windows[i].timeNeeded == currTime)
         {
-          windows[i].studentLeaves();
-          windows[i].idleTime = 0;
-          windows[i].timeDone = -1;
+          stats.takeStudent(windows[i].studentLeaves());
         }
         if (!windows[i].isOccupied)
         {
-          windows[i].acceptStudent((studentQueue->peek()));
-          windows[i].timeDone = (studentQueue->peek().timeNeeded) + currTime;
-          stats.totalIdleTime += windows[i].idleTime;
-          stats.totalStudentWaitTime += ((studentQueue->remove()).timeWaited);
-          //studentsServed++;
+          stats.takeIdle(windows[i].acceptStudent((studentQueue->remove())));
           break;
         }
       }
-      studentQueue->peek().increaseTimeWaited();
+      while(studentQueue->peek() != NULL) //this doesn't catch the last one though i dont think
+      {
+        studentQueue->peek().increaseTimeWaited();
+      }
     }
     currTime++;
   }

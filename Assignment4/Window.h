@@ -1,25 +1,32 @@
-#include "Student.h"
+#include Student.h
 
+using namespace std;
+
+/*
+  This class holds Student objects until time is up then passes them to statistics.
+  If the window is empty it will count up its own idle time.
+  Once the window is filled it will send its idle time to Statistics.
+
+*/
 class Window
 {
-public:
-  Window();
-  ~Window();
-  void acceptStudent(Student s);
-  bool isOccupied;
-  void studentLeaves();
-  int idleTime;
-  int timeDone;
-private:
-  Student* student;
+  public:
+    Window();
+    ~Window();
+    int acceptStudent(Student s);
+    Student removeStudent();
+
+    bool isOccupied;
+    Student *s;
+    int idleTime;
+
 };
 
 Window::Window()
 {
   isOccupied = false;
-  student = NULL;
+  s = NULL;
   idleTime = 0;
-  timeDone = -1;
 }
 
 Window::~Window()
@@ -27,16 +34,20 @@ Window::~Window()
 
 }
 
-void Window::acceptStudent(Student s)
+int Window::acceptStudent(Student stud)
 {
-  student = &s;
+  s = stud;
   isOccupied = true;
-  timeDone = s->timeNeeded;
+  int temp = idleTime;
+  idleTime = 0;
+  return temp;
 }
 
-void Window::studentLeaves()
+Student Window::removeStudent()
 {
-  delete student;
-  student = NULL;
+  Student *stud = &s;
+  delete s;
+  s = NULL;
   isOccupied = false;
+  return stud;
 }

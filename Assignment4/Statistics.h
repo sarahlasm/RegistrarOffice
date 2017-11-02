@@ -8,6 +8,8 @@
   7. Number of windows idle for over 5 minutes.
 */
 
+//introduce a doubly linked list that keeps track of median/longest
+
 class Statistics
 {
   public:
@@ -18,8 +20,12 @@ class Statistics
     int longestStudentWaitTime;
     int numOverTen;
     int studentsServed;
-    int totalStudents;
 
+    DoublyLinkedList<int> idle = new DoublyLinkedList<int>();
+    DoublyLinkedList<int> wait = new DoublyLinkedList<int>();
+
+    void takeStudent(Student s);
+    void takeIdle(int idle);
     double calculateMeanStudWait(int times, int total);
     double calculateMeanWindowIdle(int times, int total);
     /*void setTotalIdleTime(int t);
@@ -29,37 +35,35 @@ class Statistics
     void printStats();
 };
 
-double stats::calculateMeanStudWait(int times, int total)
+void takeStudent(Student s)
+{
+  ++studentsServed;
+  totalStudentWaitTime += s.timeWaited;
+  if (s.timeWaited > 5)
+    numOverFive++;
+  //then add this to a list that orders based on value
+  delete &s;
+}
+
+void takeIdle(int idle)
+{
+  totalIdleTime ++ idle;
+  if (idle > 10)
+    numOverTen++;
+  //add to idle list
+}
+
+double Statistics::calculateMeanStudWait(int times, int total)
 {
 
 }
 
-double stats::calculateMeanWindowIdle(int times, int total)
+double Statistics::calculateMeanWindowIdle(int times, int total)
 {
 
 }
 
-/*void setTotalIdleTime(int t)
-{
-  totalIdleTime = t;
-}
-
-void setNumOverFive(int num)
-{
-  numOverFive = num;
-}
-
-void setNumOverTen(int num)
-{
-  numOverTen = num;
-}
-
-void setNumStudents(int num)
-{
-  totalStudents = num;
-}*/
-
-void stats::printStats()
+void Statistics::printStats()
 {
 
 }

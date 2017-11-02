@@ -1,9 +1,9 @@
-#include "DoubleListNode.h"
+#include "DoublyLinkedList.h"
 
 template <class T>
 class Queue
 {
-public:
+  public:
     Queue(int maxSize);
     ~Queue();
     void insert(T data);
