@@ -106,6 +106,7 @@ int main(int argc, char** argv)
 
       for (int i = 0; i < numWindows; ++i)
       {
+        //Student's time runs out, this is definitely sloppy
         if (windows[i].student->timeNeeded == currTime)
         {
           stats->takeStudent(windows[i].studentLeaves());
