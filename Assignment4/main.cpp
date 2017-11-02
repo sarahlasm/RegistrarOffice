@@ -1,11 +1,13 @@
 /**
 @TODO
-  - Fix compiler error
   - Currently, only the first student in line has their timeWaited increased when they are forced to
     wait. Ensure others have theirs updated too.
+    - I don't know what you added Amanda, so this may no longer be accurate. Still, something
+      along these lines needs to be fixed.
   - Keep track of all the data we need to.
   - Perform data analysis at the end.
   - Fix destructors.
+  - What happens if all the windows are full? Currently, nothing good.
 */
 
 #include "Queue.h"
@@ -62,9 +64,9 @@ int main(int argc, char** argv)
             stats->takeIdle(windows[j].acceptStudent(*s));
             break;
           }
-
+          if (j == numWindows - 1)
+            studentQueue->insert(*s);
         }
-      //  studentQueue->insert(*s); //@TODO - this shouldn't be an else, but it also shouldn't go here.
       }
     }
     while (!studentQueue->isEmpty())
@@ -91,6 +93,7 @@ int main(int argc, char** argv)
       */
     }
     currTime++;
+    cout << "I've reached the end of the loop! Hooray! xoxo\n";
     if (currTime == 3) return -1; //DEBUG
   }
 }
