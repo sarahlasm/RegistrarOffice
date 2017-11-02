@@ -66,7 +66,10 @@ T Queue<T>::remove()
       head = 0;
   }
   else
+  {
     cerr << "Your queue is empty. You cannot remove more.\n";
+    return -1;
+  }
 }
 
 template <class T>
