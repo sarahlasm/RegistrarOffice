@@ -22,8 +22,8 @@ class Statistics
     int numOverTen;
     int studentsServed;
 
-    DoublyLinkedList<int> *idle = new DoublyLinkedList<int>();
-    DoublyLinkedList<int> *wait = new DoublyLinkedList<int>();
+    DoublyLinkedList<int> *idle = new DoublyLinkedList<int>(20);
+    DoublyLinkedList<int> *wait = new DoublyLinkedList<int>(20);
 
     Statistics();
     ~Statistics();
@@ -54,6 +54,29 @@ void takeStudent(Student s)
   if (s.timeWaited > 5)
     numOverFive++;
   //then add this to a list that orders based on value
+  if (wait->front == NULL)
+  {
+    insertFront(s.timeWaited);
+  }
+  else
+  {
+    ListNode *curr = wait->front;
+    while(true)
+    {
+      if (curr->data <= s.timeWaited)
+      {
+        curr->next = new ListNode<int>(s.timeWaited);
+        curr = curr->next;
+      }
+      else if (curr->data > s.timeWaited)
+      {
+        if (curr == front)
+        {
+          
+        }
+      }
+    }
+  }
   delete &s;
 }
 
