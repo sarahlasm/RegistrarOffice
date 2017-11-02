@@ -34,20 +34,24 @@ int main(int argc, char** argv)
   Student *s;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   int totalIdleTime = 0;
+  int longestIdleTime = 0;
+  int numOverFive = 0;
   int totalStudentWaitTime = 0;
+  int longestStudentWaitTime = 0;
+  int numOverTen = 0;
   int studentsServed = 0;
   while (true)
   {
     if (currInput == -1)
     {
       getline(inFile, input);
-      s = new Student(stoi(input));
-      studentQueue->insert(*s);
+      /*s = new Student(stoi(input));
+      studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
       currInput = stoi(input);
     }
     if (currTime == currInput)
     {
-      currInput = -1;
+      //currInput = -1;
       getline(inFile, input);
       for (int i = 0; i < stoi(input); ++i)
       {
