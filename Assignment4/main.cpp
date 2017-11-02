@@ -21,6 +21,16 @@
 
 using namespace std;
 
+bool allWindowsEmpty(Window windows[], int numWindows)
+{
+  for (int i = 0; i < numWindows; ++i)
+  {
+    if (windows[i].isOccupied)
+      return false;
+  }
+  return true;
+}
+
 int main(int argc, char** argv)
 {
   if (argc == 1)
@@ -49,6 +59,11 @@ int main(int argc, char** argv)
       studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
         currInput = stoi(input);
       //  cout << currInput;
+      }
+      else if (!allWindowsEmpty(windows, numWindows))
+      {
+        currTime++;
+        break;
       }
       else return 0;
     }
@@ -80,6 +95,11 @@ int main(int argc, char** argv)
             }
           }
         }
+      }
+      else if (!allWindowsEmpty(windows, numWindows))
+      {
+        currTime++;
+        break;
       }
       else return 0;
     }
