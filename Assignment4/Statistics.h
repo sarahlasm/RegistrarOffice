@@ -1,4 +1,3 @@
-#include "Student.h"
 
 /*
   1. The mean student wait time.
@@ -26,6 +25,8 @@ class Statistics
     DoublyLinkedList<int> *idle = new DoublyLinkedList<int>();
     DoublyLinkedList<int> *wait = new DoublyLinkedList<int>();
 
+    Statistics();
+    ~Statistics();
     void takeStudent(Student s);
     void takeIdle(int idle);
     double calculateMeanStudWait(int times, int total);
@@ -37,21 +38,30 @@ class Statistics
     void printStats();
 };
 
+Statistics::Statistics()
+{
+
+}
+
+Statistics::~Statistics()
+{
+  cout << "object deleted" << endl;
+}
 void takeStudent(Student s)
 {
-  ++Statistics::studentsServed;
-  Statistics::totalStudentWaitTime += s.timeWaited;
+  ++studentsServed;
+  totalStudentWaitTime += s.timeWaited;
   if (s.timeWaited > 5)
-    Statistics::numOverFive++;
+    numOverFive++;
   //then add this to a list that orders based on value
   delete &s;
 }
 
 void takeIdle(int idle)
 {
-  Statistics::totalIdleTime ++ idle;
+  totalIdleTime ++ idle;
   if (idle > 10)
-    Statistics::numOverTen++;
+    numOverTen++;
   //add to idle list
 }
 

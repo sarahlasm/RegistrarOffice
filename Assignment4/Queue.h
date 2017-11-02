@@ -1,4 +1,4 @@
-#include "DoublyLinkedList.h"
+#include "DoubleListNode.h"
 
 template <class T>
 class Queue
