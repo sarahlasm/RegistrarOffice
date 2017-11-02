@@ -10,7 +10,7 @@
 
 #include "Queue.h"
 #include "Window.h"
-#include "stats.h"
+#include "Statistics.h"
 #include <fstream>
 #include <iostream>
 #include <string>

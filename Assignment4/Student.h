@@ -9,6 +9,8 @@ public:
   Student(int timeN);
   ~Student();
   void increaseTimeWaited();
+  int getTimeNeeded();
+  int getTimeWaited();
   int timeNeeded;
   int timeWaited;
 };
@@ -33,4 +35,14 @@ Student::~Student()
 void Student::increaseTimeWaited()
 {
   timeWaited++;
+}
+
+int Student::getTimeNeeded()
+{
+  return timeNeeded;
+}
+
+int Student::getTimeWaited()
+{
+  return timeWaited;
 }

@@ -8,7 +8,7 @@
   7. Number of windows idle for over 5 minutes.
 */
 
-class stats
+class Statistics
 {
   public:
     int totalIdleTime;
