@@ -90,7 +90,8 @@ int main(int argc, char** argv)
             if (!windows[j].isOccupied)
             {
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
-              stats->takeIdle(windows[j].acceptStudent(*s));
+              studentQueue->insert(*s);
+              stats->takeIdle(windows[j].acceptStudent(studentQueue->remove()));
               break;
             }
           }
