@@ -10,7 +10,6 @@ public:
   Student studentLeaves();
   int idleTime;
   //int timeDone;
-private:
   Student* student;
 };
 
@@ -40,5 +39,5 @@ Student Window::studentLeaves()
 {
   //student = NULL;
   isOccupied = false;
-  return &student;
+  return *student;
 }

@@ -22,8 +22,8 @@ class Statistics
     int numOverTen;
     int studentsServed;
 
-    DoublyLinkedList<int> *idle = new DoublyLinkedList<int>(20);
-    DoublyLinkedList<int> *wait = new DoublyLinkedList<int>(20);
+    DoublyLinkedList<int> *idle;
+    DoublyLinkedList<int> *wait;
 
     Statistics();
     ~Statistics();
@@ -40,27 +40,31 @@ class Statistics
 
 Statistics::Statistics()
 {
-
+  idle = new DoublyLinkedList<int>();
+  wait = new DoublyLinkedList<int>();
+  studentsServed = 0;
+  totalStudentWaitTime = 0;
 }
 
 Statistics::~Statistics()
 {
   cout << "object deleted" << endl;
 }
-void takeStudent(Student s)
+
+void Statistics::takeStudent(Student s)
 {
-  ++studentsServed;
+  studentsServed++;
   totalStudentWaitTime += s.timeWaited;
   if (s.timeWaited > 5)
     numOverFive++;
   //then add this to a list that orders based on value
   if (wait->front == NULL)
   {
-    insertFront(s.timeWaited);
+    wait->insertFront(s.timeWaited);
   }
   else
   {
-    ListNode *curr = wait->front;
+    ListNode<int> *curr = wait->front;
     while(true)
     {
       if (curr->data <= s.timeWaited)
@@ -70,9 +74,9 @@ void takeStudent(Student s)
       }
       else if (curr->data > s.timeWaited)
       {
-        if (curr == front)
+        if (curr == wait->front)
         {
-          
+
         }
       }
     }
@@ -80,9 +84,9 @@ void takeStudent(Student s)
   delete &s;
 }
 
-void takeIdle(int idle)
+void Statistics::takeIdle(int idle)
 {
-  totalIdleTime ++ idle;
+  totalIdleTime += idle;
   if (idle > 10)
     numOverTen++;
   //add to idle list
@@ -90,12 +94,12 @@ void takeIdle(int idle)
 
 double Statistics::calculateMeanStudWait(int times, int total)
 {
-
+  return 0; //so it compiles
 }
 
 double Statistics::calculateMeanWindowIdle(int times, int total)
 {
-
+  return 0; //so it compiles
 }
 
 void Statistics::printStats()

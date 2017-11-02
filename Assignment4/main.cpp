@@ -33,7 +33,7 @@ int main(int argc, char** argv)
   int currTime = 0;
   Window *windows = new Window[numWindows];
   Student *s;
-  Statistics stats = new Statistics();
+  Statistics* stats = new Statistics();
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
   {
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
         {
           if (!windows[j].isOccupied)
           {
-            stats.takeIdle(windows[j].acceptStudent(s));
+            stats->takeIdle(windows[j].acceptStudent(*s));
           }
           else
             studentQueue->insert(*s);
@@ -70,20 +70,23 @@ int main(int argc, char** argv)
 
       for (int i = 0; i < numWindows; ++i)
       {
-        if (windows[i]->timeNeeded == currTime)
+        if (windows[i].student->timeNeeded == currTime)
         {
-          stats.takeStudent(windows[i].studentLeaves());
+          stats->takeStudent(windows[i].studentLeaves());
         }
         if (!windows[i].isOccupied)
         {
-          stats.takeIdle(windows[i].acceptStudent((studentQueue->remove())));
+          stats->takeIdle(windows[i].acceptStudent((studentQueue->remove())));
           break;
         }
       }
+      /** @TODO
+      This entire part won't work because peek doesn't remove, so it will be constantly peeking at the first one in line.
       while(studentQueue->peek() != NULL) //this doesn't catch the last one though i dont think
       {
         studentQueue->peek().increaseTimeWaited();
       }
+      */
     }
     currTime++;
   }
