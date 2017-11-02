@@ -63,24 +63,23 @@ T Queue<T>::remove()
 {
   if (!isEmpty())
   {
-    T temp = head;
     ++head;
     --numElements;
-    return temp;
+    return myQueue->front->data;
     if (head == max && myQueue->front == NULL)
       head = 0;
   }
   else
   {
     cerr << "Your queue is empty. You cannot remove more.\n";
-    return -1;
+    return *(new T);
   }
 }
 
 template <class T>
 T Queue<T>::peek()
 {
-  return head;
+  return myQueue->front->data;
 }
 
 template <class T>

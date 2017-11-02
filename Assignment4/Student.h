@@ -6,13 +6,12 @@ class Student
 {
 public:
   Student();
-  Student(int timeN);
+  Student(int timeN, int timeE);
   ~Student();
-  void increaseTimeWaited();
-  int getTimeNeeded();
-  int getTimeWaited();
+  void setTimeWaited(int timeW);
   int timeNeeded;
   int timeWaited;
+  int timeEntered;
 };
 
 Student::Student()
@@ -21,27 +20,18 @@ Student::Student()
   timeWaited = 0;
 }
 
-Student::Student(int timeN)
+Student::Student(int timeN, int timeE)
 {
   timeNeeded = timeN;
   timeWaited = 0;
+  timeEntered = timeE;
 }
 
 Student::~Student()
 {
 }
 
-void Student::increaseTimeWaited()
+void Student::setTimeWaited(int timeW)
 {
-  timeWaited++;
-}
-
-int Student::getTimeNeeded()
-{
-  return timeNeeded;
-}
-
-int Student::getTimeWaited()
-{
-  return timeWaited;
+  timeWaited = timeW;
 }

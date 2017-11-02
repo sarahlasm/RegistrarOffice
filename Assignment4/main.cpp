@@ -76,7 +76,7 @@ int main(int argc, char** argv)
         for (int i = 0; i < stoi(input); ++i)
         {
           getline(inFile, studentInput);
-          Student* s = new Student(stoi(studentInput));
+          Student* s = new Student(stoi(studentInput), stoi(input));
           s->timeNeeded += currInput;
           for (int j = 0; j <= numWindows; ++j)
           {
@@ -91,6 +91,7 @@ int main(int argc, char** argv)
             {
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
               studentQueue->insert(*s);
+              studentQueue->peek().setTimeWaited(currTime - studentQueue->peek().timeEntered);
               stats->takeIdle(windows[j].acceptStudent(studentQueue->remove()));
               break;
             }
