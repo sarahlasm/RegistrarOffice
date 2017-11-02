@@ -31,6 +31,7 @@ void Window::acceptStudent(Student s)
 {
   student = &s;
   isOccupied = true;
+  timeDone = s->timeNeeded;
 }
 
 void Window::studentLeaves()

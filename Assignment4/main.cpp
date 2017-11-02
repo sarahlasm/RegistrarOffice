@@ -10,6 +10,7 @@
 
 #include "Queue.h"
 #include "Window.h"
+#include "stats.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -33,13 +34,13 @@ int main(int argc, char** argv)
   Window *windows = new Window[numWindows];
   Student *s;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
-  int totalIdleTime = 0;
+  /*int totalIdleTime = 0;
   int longestIdleTime = 0;
   int numOverFive = 0;
   int totalStudentWaitTime = 0;
   int longestStudentWaitTime = 0;
   int numOverTen = 0;
-  int studentsServed = 0;
+  int studentsServed = 0;*/
   while (true)
   {
     if (currInput == -1)
@@ -58,9 +59,10 @@ int main(int argc, char** argv)
         getline(inFile, input);
         Student* s = new Student(stoi(input));
         studentQueue->insert(*s);
+        stats.totalStudents++;
       }
     }
-    while (!studentQueue->isEmpty())
+    while (currTime <= currInput || !studentQueue->isEmpty())
     {
       for (int i = 0; i < numWindows; ++i)
       {
@@ -74,9 +76,9 @@ int main(int argc, char** argv)
         {
           windows[i].acceptStudent((studentQueue->peek()));
           windows[i].timeDone = (studentQueue->peek().timeNeeded) + currTime;
-          totalIdleTime += windows[i].idleTime;
-          totalStudentWaitTime += ((studentQueue->remove()).timeWaited);
-          studentsServed++;
+          stats.totalIdleTime += windows[i].idleTime;
+          stats.totalStudentWaitTime += ((studentQueue->remove()).timeWaited);
+          //studentsServed++;
           break;
         }
       }
