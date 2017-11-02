@@ -1,15 +1,11 @@
 /**
 @TODO
-  - Currently, only the first student in line has their timeWaited increased when they are forced to
-    wait. Ensure others have theirs updated too.
-    - I don't know what you added Amanda, so this may no longer be accurate. Still, something
-      along these lines needs to be fixed.
   - Keep track of all the data we need to.
   - Perform data analysis at the end.
   - Fix destructors.
-  - What happens if all the windows are full? Currently, nothing good.
   - If there's a long wait time between two students, the program will keep reading the list.
     Fix that.
+  - Do students ever leave when they're done?
 */
 
 #include "Queue.h"
