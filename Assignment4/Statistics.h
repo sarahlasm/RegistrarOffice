@@ -1,3 +1,5 @@
+#include "Student.h"
+
 /*
   1. The mean student wait time.
   2. The median student wait time.   [maybe a BST??]
@@ -21,8 +23,8 @@ class Statistics
     int numOverTen;
     int studentsServed;
 
-    DoublyLinkedList<int> idle = new DoublyLinkedList<int>();
-    DoublyLinkedList<int> wait = new DoublyLinkedList<int>();
+    DoublyLinkedList<int> *idle = new DoublyLinkedList<int>();
+    DoublyLinkedList<int> *wait = new DoublyLinkedList<int>();
 
     void takeStudent(Student s);
     void takeIdle(int idle);
@@ -37,19 +39,19 @@ class Statistics
 
 void takeStudent(Student s)
 {
-  ++studentsServed;
-  totalStudentWaitTime += s.timeWaited;
+  ++Statistics::studentsServed;
+  Statistics::totalStudentWaitTime += s.timeWaited;
   if (s.timeWaited > 5)
-    numOverFive++;
+    Statistics::numOverFive++;
   //then add this to a list that orders based on value
   delete &s;
 }
 
 void takeIdle(int idle)
 {
-  totalIdleTime ++ idle;
+  Statistics::totalIdleTime ++ idle;
   if (idle > 10)
-    numOverTen++;
+    Statistics::numOverTen++;
   //add to idle list
 }
 
