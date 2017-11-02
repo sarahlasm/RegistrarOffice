@@ -48,7 +48,7 @@ int main(int argc, char** argv)
       /*s = new Student(stoi(input));
       studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
         currInput = stoi(input);
-        cout << currInput;
+      //  cout << currInput;
       }
       else return 0;
     }
@@ -60,20 +60,24 @@ int main(int argc, char** argv)
         string studentInput;
         for (int i = 0; i < stoi(input); ++i)
         {
-          cout << input;
           getline(inFile, studentInput);
           Student* s = new Student(stoi(studentInput));
           s->timeNeeded += currInput;
-          for (int j = 0; j < numWindows; ++j)
+          for (int j = 0; j <= numWindows; ++j)
           {
+            cout << j << " " << endl;
+            if (j == numWindows)
+            {
+              cout << "The time is " << currTime << " and a new student is waiting in line.\n";
+              studentQueue->insert(*s);
+              break;
+            }
             if (!windows[j].isOccupied)
             {
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
               stats->takeIdle(windows[j].acceptStudent(*s));
               break;
             }
-            if (j == numWindows - 1)
-              studentQueue->insert(*s);
           }
         }
       }

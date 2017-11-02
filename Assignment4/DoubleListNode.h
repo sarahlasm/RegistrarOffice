@@ -100,10 +100,11 @@ Parameter data: the data to be in the new node
 template <class T>
 void DoublyLinkedList<T>::insertFront(T data)
 {
-
   ListNode<T>* node = new ListNode<T>(data);
   if (size == 0)
+  {
     back = node;
+  }
   else
   {
     front->prev = node;

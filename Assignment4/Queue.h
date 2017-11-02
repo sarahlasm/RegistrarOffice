@@ -41,9 +41,14 @@ Queue<T>::~Queue()
 }
 
 template <class T>
-void Queue<T>::insert(T data )
+void Queue<T>::insert(T data)
 {
-  if (!isFull())
+  if (isEmpty())
+  {
+    myQueue->insertFront(data);
+    tail++;
+  }
+  else if (!isFull())
   {
     myQueue->insertAfter(tail++, data);
     if (tail == max && myQueue->front == NULL)
