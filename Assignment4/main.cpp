@@ -17,6 +17,10 @@
 
 using namespace std;
 
+/**
+allWindowsEmpty
+Returns true if all windows are empty
+*/
 bool allWindowsEmpty(Window windows[], int numWindows)
 {
   for (int i = 0; i < numWindows; ++i)
@@ -117,13 +121,6 @@ int main(int argc, char** argv)
           break;
         }
       }
-      /** @TODO
-      This entire part won't work because peek doesn't remove, so it will be constantly peeking at the first one in line.
-      while(studentQueue->peek() != NULL) //this doesn't catch the last one though i dont think
-      {
-        studentQueue->peek().increaseTimeWaited();
-      }
-      */
     }
     currTime++;
     cout << "I've reached the end of the loop! Hooray! xoxo\n";
