@@ -43,26 +43,28 @@ int main(int argc, char** argv)
       /*s = new Student(stoi(input));
       studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
       currInput = stoi(input);
+      cout << currInput;
     }
     if (currTime == currInput) //hits 1
     {
       //currInput = -1;
       getline(inFile, input);
+      string studentInput;
       for (int i = 0; i < stoi(input); ++i)
       {
-        getline(inFile, input);
-        Student* s = new Student(stoi(input));
+        getline(inFile, studentInput);
+        Student* s = new Student(stoi(studentInput));
         s->timeNeeded += currInput;
         for (int j = 0; j < numWindows; ++j)
         {
           if (!windows[j].isOccupied)
           {
             stats->takeIdle(windows[j].acceptStudent(*s));
+            break;
           }
-          else
-            studentQueue->insert(*s);
+
         }
-        delete &s; //necessary to get rid of this student object?
+      //  studentQueue->insert(*s); //@TODO - this shouldn't be an else, but it also shouldn't go here.
       }
     }
     while (!studentQueue->isEmpty())
@@ -89,5 +91,6 @@ int main(int argc, char** argv)
       */
     }
     currTime++;
+    if (currTime == 3) return -1; //DEBUG
   }
 }
