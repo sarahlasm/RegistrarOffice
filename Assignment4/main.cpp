@@ -39,7 +39,7 @@ int main(int argc, char** argv)
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
   {
-    if (currInput == -1) //beginning
+    if (currInput != currTime) //beginning
     {
       getline(inFile, input);
       /*s = new Student(stoi(input));
@@ -54,6 +54,7 @@ int main(int argc, char** argv)
       string studentInput;
       for (int i = 0; i < stoi(input); ++i)
       {
+        cout << input;
         getline(inFile, studentInput);
         Student* s = new Student(stoi(studentInput));
         s->timeNeeded += currInput;
@@ -61,6 +62,7 @@ int main(int argc, char** argv)
         {
           if (!windows[j].isOccupied)
           {
+            cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
             stats->takeIdle(windows[j].acceptStudent(*s));
             break;
           }
@@ -94,6 +96,6 @@ int main(int argc, char** argv)
     }
     currTime++;
     cout << "I've reached the end of the loop! Hooray! xoxo\n";
-    if (currTime == 3) return -1; //DEBUG
+    if (currTime == 4) return -1; //DEBUG
   }
 }

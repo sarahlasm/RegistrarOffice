@@ -29,7 +29,6 @@ Student::Student(int timeN)
 
 Student::~Student()
 {
-  cout << "object deleted";
 }
 
 void Student::increaseTimeWaited()
