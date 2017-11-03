@@ -106,7 +106,7 @@ double Statistics::calculateMean(int times, int total)
 void Statistics::printStats()
 {
   cout << "STATISTICS: " << endl;
-  cout << "Median student wait time: " << findMedian(wait) << endl;
+  cout << "Median student wait time: " /*<< findMedian(wait)*/ << endl;
   cout << "Longest student wait time: " << longestStudentWaitTime << endl;
   cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
   cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
