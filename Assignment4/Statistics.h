@@ -63,55 +63,23 @@ void Statistics::takeStudent(Student s)
   if (s.timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = s.timeWaited;
   //then add this to a list that orders based on value
-  wait->insertFront(s.timeWaited);
-  cout << "Line 67" << endl;
-  /*if (wait->front == NULL)
+  if (s.timeWaited >= wait->front || wait->front == NULL)
   {
     wait->insertFront(s.timeWaited);
-    cout << "Line 68\n";
   }
-  //this is the problem child
-  /*else
+  else
   {
-    ListNode<int> *node = new ListNode<int>(s.timeWaited);
-    wait->insertFront(s.timeWaited
-    /*while (true)//loop until we make a new node
+    ListNode<int> *node = new ListNode<int>(s.timeWaited)
+    ListNode<int> *curr = wait->front;
+    if (curr->next->data <= node->data)
     {
-      ListNode<int> *curr = wait->front;
-      ListNode<int> *node = new ListNode<int>(s.timeWaited);
-      /*if (curr->data <= node->data)
-      {
-        cout << "if0\n";
-        if (curr->next == NULL || curr->next == front)
-        {
-          cout << "if1\n";
-          ListNode<int> *node = new ListNode<int>(s.timeWaited);
-          curr->next = node;
-          node->prev = curr;
-          wait->size++;
-          break;
-        }
-        else
-        {
-          cout << "else\n";
-          curr = curr->next;
-        }
-      }
-      else
-      {
-        cout << "if2\n";
-        if (curr == wait->front || curr->prev == NULL)
-        {
-          cout << "if3\n";
-          wait->insertFront(s.timeWaited);
-          curr->prev = wait->front;
-          break;
-        }
-        else
-          curr = curr->prev;
-      }
+      node->next = curr->next;
+      node->prev = curr;
+      curr->next = node;
     }
-  }*/
+  }
+  /*wait->insertFront(s.timeWaited);
+  cout << "Line 67" << endl;*/
   cout << "Total wait time " << totalStudentWaitTime << endl;
   //delete &s;
 }
