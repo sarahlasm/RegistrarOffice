@@ -72,11 +72,11 @@ void Statistics::takeStudent(Student s)
     ListNode<int> *node = new ListNode<int>(s.timeWaited)
     ListNode<int> *curr = wait->front;
     /*if (curr->next->data <= node->data)
-    {*/
+    {
       node->next = curr->next;
       node->prev = curr;
       curr->next = node;
-    //}
+    }*/
   }
   /*wait->insertFront(s.timeWaited);
   cout << "Line 67" << endl;*/
