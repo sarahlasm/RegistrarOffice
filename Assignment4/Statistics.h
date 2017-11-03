@@ -69,16 +69,15 @@ void Statistics::takeStudent(Student s)
     cout << "Line 68\n";
   }
   //this is the problem child
-  /*else
+  else
   {
     while (true)//loop until we make a new node
     {
       ListNode<int> *curr = wait->front;
-      cout << "Woo pointer" << endl;
       if (curr->data <= s.timeWaited)
       {
         cout << "if0\n";
-        if (curr->next == NULL)
+        if (curr->next == NULL || curr->next == front)
         {
           cout << "if1\n";
           ListNode<int> *node = new ListNode<int>(s.timeWaited);
@@ -107,7 +106,7 @@ void Statistics::takeStudent(Student s)
           curr = curr->prev;
       }
     }
-  }*/
+  }
   cout << "Total wait time " << totalStudentWaitTime << endl;
   //delete &s;
 }
