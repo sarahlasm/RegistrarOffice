@@ -29,8 +29,7 @@ class Statistics
     ~Statistics();
     void takeStudent(Student s);
     void takeIdle(int idle);
-    double calculateMeanStudWait(int times, int total);
-    double calculateMeanWindowIdle(int times, int total);
+    double calculateMean(int times, int total);
     /*void setTotalIdleTime(int t);
     void setNumOverFive(int num);
     void setNumStudents(int num);
@@ -140,14 +139,9 @@ void Statistics::takeIdle(int idly)
   }
 }
 
-double Statistics::calculateMeanStudWait(int times, int total)
+double Statistics::calculateMean(int times, int total)
 {
-  return 0; //so it compiles
-}
-
-double Statistics::calculateMeanWindowIdle(int times, int total)
-{
-  return 0; //so it compiles
+  return (double)total/(double)times;
 }
 
 void Statistics::printStats()
