@@ -46,7 +46,7 @@ int main(int argc, char** argv)
   Window *windows = new Window[numWindows];
   Student *s;
   Student s2;
-  Statistics* stats = new Statistics();
+  Statistics* stats = new Statistics(numWindows);
   bool nextTimeSelected = false;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
@@ -59,11 +59,11 @@ int main(int argc, char** argv)
       {
         currInput = stoi(input);
       }
-      else if (!allWindowsEmpty(windows, numWindows))
+      else
       {
-    //    currTime++;
+        stats->printStats();
+        return 0;
       }
-      else return 0;
     }
     else if (currTime == currInput) //hits 1
     {
@@ -105,19 +105,13 @@ int main(int argc, char** argv)
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
-        for (int j = 0; j <= numWindows; ++j)
-        {
-          if (windows[j].isEmpty)
-          {
-            windows[j].idleTime++;
-          }
-        }
         cout << "if3\n";
         currTime++;
         break;
       }
       else if (allWindowsEmpty(windows, numWindows) )
       {
+        stats->printStats();
         return 0;
 
       }
@@ -125,6 +119,7 @@ int main(int argc, char** argv)
     }
     else if (allWindowsEmpty(windows, numWindows) && currInput < currTime)
     {
+      stats->printStats();
       return 0;
     }
     for (int i = 0; i < numWindows; ++i)
@@ -146,6 +141,10 @@ int main(int argc, char** argv)
         cout << "Student has been served at time " << s2.timeServed << endl;
         s2.setTimeWaited(currTime - s2.timeEntered);
         stats->takeIdle(windows[i].acceptStudent(s2));
+      }
+      if (!windows[i].isOccupied)
+      {
+        windows[i].idleTime++;
       }
     }
     cout << "This is the end of time " << currTime << endl;
