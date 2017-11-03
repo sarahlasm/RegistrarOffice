@@ -50,7 +50,6 @@ int main(int argc, char** argv)
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
   {
-    cout << "Top of the looop\n";
     if (currInput != currTime && !nextTimeSelected) //beginning
     {
       cout << "if1\n";
@@ -105,18 +104,20 @@ int main(int argc, char** argv)
         currTime++;
         break;
       }
-      else
+      else if (allWindowsEmpty(windows, numWindows) )
       {
-        cout << "Cake";
         return 0;
 
       }
 
     }
-    if (currTime == 20) return -1;
+    else if (allWindowsEmpty(windows, numWindows) && currInput < currTime)
+    {
+      return 0;
+    }
     for (int i = 0; i < numWindows; ++i)
     {
-      cout << "Is it time for the student to go? " << (windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) << endl;
+    //  cout << "Is it time for the student to go? " << (windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) << endl;
       //Student's time runs out, this is definitely sloppy
       if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
       {
@@ -125,6 +126,7 @@ int main(int argc, char** argv)
       }
       if (!windows[i].isOccupied && !studentQueue.isEmpty())
       {
+        cout << "The time is " << currTime << " and a student in line has just gone to window " << i << endl;
         stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
       }
     }
