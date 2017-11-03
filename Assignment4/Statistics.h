@@ -21,6 +21,7 @@ class Statistics
     int longestStudentWaitTime;
     int numOverTen;
     int studentsServed;
+    int numWindows;
 
     DoublyLinkedList<int> *wait;
 
@@ -47,6 +48,17 @@ Statistics::Statistics()
   totalIdleTime = 0;
   longestIdleTime = 0;
   longestStudentWaitTime = 0;
+}
+
+Statistics::Statistics(int n)
+{
+  wait = new DoublyLinkedList<int>();
+  studentsServed = 0;
+  totalStudentWaitTime = 0;
+  totalIdleTime = 0;
+  longestIdleTime = 0;
+  longestStudentWaitTime = 0;
+  numWindows = n;
 }
 
 Statistics::~Statistics()
@@ -111,6 +123,6 @@ void Statistics::printStats()
   cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
   cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
   cout << "Longest idle time: " << longestIdleTime << endl;
-  cout << "Mean idle time: "; //FIND NUM windows
+  cout << "Mean idle time: " << calculateMean(numWindows, totalIdleTime) << endl; //FIND NUM windows
   cout << "Number of windows idle over 5 minutes: " << numOverFive << endl;
 }
