@@ -76,7 +76,7 @@ int main(int argc, char** argv)
         for (int i = 0; i < stoi(input); ++i)
         {
           getline(inFile, studentInput);
-          Student s(stoi(studentInput), stoi(input));
+          Student s(stoi(studentInput), currTime);
 
           for (int j = 0; j <= numWindows; ++j)
           {
@@ -137,8 +137,8 @@ int main(int argc, char** argv)
         s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
         cout << "Student has been served at time " << s2.timeServed << endl;
-        if (currTime > s2.timeEntered)
-          s2.setTimeWaited(currTime - s2.timeEntered);
+        s2.setTimeWaited(currTime - s2.timeEntered);
+        cout << currTime << " - " << s2.timeEntered << " = " << s2.timeWaited << endl;
         stats->takeIdle(windows[i].acceptStudent(s2));
       }
     }
