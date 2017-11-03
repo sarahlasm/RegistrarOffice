@@ -62,22 +62,34 @@ void Statistics::takeStudent(Student s)
   {
     wait->insertFront(s.timeWaited);
   }
+  //this is the problem child
   else
   {
-    ListNode<int> *curr = wait->front;
-    while(true)
+    while (true)//loop until we make a new node
     {
+      ListNode<int> *curr = wait->front;
       if (curr->data <= s.timeWaited)
       {
-        curr->next = new ListNode<int>(s.timeWaited);
-        curr = curr->next;
-      }
-      else if (curr->data > s.timeWaited)
-      {
-        if (curr == wait->front)
+        if (curr->next == NULL)
         {
-
+          curr->next = new ListNode(s.timeWaited);
+          curr->next->prev = curr;
+          wait->size++;
+          break;
         }
+        else
+          curr = curr->next;
+      }
+      else
+      {
+        if (curr == front || curr->prev = NULL)
+        {
+          curr->prev = insertFront(s.timeWaited);
+          curr->prev = front;
+          break;
+        }
+        else
+          curr = curr->prev;
       }
     }
   }
