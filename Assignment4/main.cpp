@@ -65,7 +65,7 @@ int main(int argc, char** argv)
       }
       else return 0;
     }
-    else if (currTime == currInput) //hits 1
+    if (currTime == currInput) //hits 1
     {
       cout << "if2\n";
       nextTimeSelected = false;
