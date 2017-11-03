@@ -62,7 +62,7 @@ void Statistics::takeStudent(Student s)
     wait->insertFront(s.timeWaited);
   }
   //this is the problem child
-  else
+  /*else
   {
     while (true)//loop until we make a new node
     {
@@ -94,7 +94,7 @@ void Statistics::takeStudent(Student s)
   }
   cout << "Total wait time " << totalStudentWaitTime << endl;
   //delete &s;
-}
+}*/
 
 void Statistics::takeIdle(int idly)
 {
@@ -107,7 +107,7 @@ void Statistics::takeIdle(int idly)
     idle->insertFront(idly);
   }
   //this is the problem child
-  else
+  /*else
   {
     while (true)//loop until we make a new node
     {
@@ -137,7 +137,7 @@ void Statistics::takeIdle(int idly)
       }
     }
   }
-}
+}*/
 
 double Statistics::calculateMean(int times, int total)
 {
