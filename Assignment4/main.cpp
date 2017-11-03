@@ -46,7 +46,7 @@ int main(int argc, char** argv)
   Window *windows = new Window[numWindows];
   Student *s;
   Student s2;
-  Statistics* stats = new Statistics();
+  Statistics* stats = new Statistics(numWindows);
   bool nextTimeSelected = false;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
@@ -63,9 +63,13 @@ int main(int argc, char** argv)
       {
     //    currTime++;
       }
-      else return 0;
+      else
+      {
+        stats->printStats();
+        return 0;
+      }
     }
-    else if (currTime == currInput) //hits 1
+    if (currTime == currInput) //hits 1
     {
       cout << "if2\n";
       nextTimeSelected = false;
@@ -76,7 +80,7 @@ int main(int argc, char** argv)
         for (int i = 0; i < stoi(input); ++i)
         {
           getline(inFile, studentInput);
-          Student s(stoi(studentInput), stoi(input));
+          Student s(stoi(studentInput), currTime);
 
           for (int j = 0; j <= numWindows; ++j)
           {
@@ -91,7 +95,7 @@ int main(int argc, char** argv)
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
               s.setTimeServed(currTime);
               cout << "Student has been served at time " << s.timeServed << endl;
-              s.setTimeWaited(currTime - s.timeEntered);
+              s.setTimeWaited(0);
               cout << "cake\n";
               studentQueue.insert(s);
               //windows[j].acceptStudent(studentQueue.remove());
@@ -105,19 +109,13 @@ int main(int argc, char** argv)
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
-        for (int j = 0; j <= numWindows; ++j)
-        {
-          if (windows[j].isEmpty)
-          {
-            windows[j].idleTime++;
-          }
-        }
         cout << "if3\n";
         currTime++;
         break;
       }
       else if (allWindowsEmpty(windows, numWindows) )
       {
+        stats->printStats();
         return 0;
 
       }
@@ -125,6 +123,7 @@ int main(int argc, char** argv)
     }
     else if (allWindowsEmpty(windows, numWindows) && currInput < currTime)
     {
+      stats->printStats();
       return 0;
     }
     for (int i = 0; i < numWindows; ++i)
@@ -144,7 +143,8 @@ int main(int argc, char** argv)
         s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
         cout << "Student has been served at time " << s2.timeServed << endl;
-        s2.setTimeWaited(currTime - s2.timeEntered);
+        s2.setTimeWaited(currTime - s2.timeEntered); ]
+        cout << currTime << " - " << s2.timeEntered << " = " << s2.timeWaited << endl;
         stats->takeIdle(windows[i].acceptStudent(s2));
       }
     }
