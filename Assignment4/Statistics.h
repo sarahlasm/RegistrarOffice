@@ -56,6 +56,7 @@ Statistics::~Statistics()
 void Statistics::takeStudent(Student s)
 {
   studentsServed++;
+  cout << "This student had waited: " << s.timeWaited << endl;
   increaseTotalWait(s.timeWaited);
   if (s.timeWaited > 5)
     numOverFive++;

@@ -91,7 +91,7 @@ int main(int argc, char** argv)
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
               s.setTimeServed(currTime);
               cout << "Student has been served at time " << s.timeServed << endl;
-              s.setTimeWaited(currTime - s.timeEntered);
+              s.setTimeWaited(0);
               cout << "cake\n";
               studentQueue.insert(s);
               //windows[j].acceptStudent(studentQueue.remove());
@@ -137,7 +137,8 @@ int main(int argc, char** argv)
         s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
         cout << "Student has been served at time " << s2.timeServed << endl;
-        s2.setTimeWaited(currTime - s2.timeEntered);
+        if (currTime > s2.timeEntered)
+          s2.setTimeWaited(currTime - s2.timeEntered);
         stats->takeIdle(windows[i].acceptStudent(s2));
       }
     }
