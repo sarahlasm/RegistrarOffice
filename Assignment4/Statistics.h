@@ -71,7 +71,7 @@ void Statistics::takeStudent(Student s)
       {
         if (curr->next == NULL)
         {
-          curr->next = new ListNode(s.timeWaited);
+          curr->next = new ListNode<int>(s.timeWaited);
           curr->next->prev = curr;
           wait->size++;
           break;
@@ -81,10 +81,10 @@ void Statistics::takeStudent(Student s)
       }
       else
       {
-        if (curr == front || curr->prev = NULL)
+        if ((curr == wait->front || curr->prev == NULL))
         {
-          curr->prev = insertFront(s.timeWaited);
-          curr->prev = front;
+          wait->insertFront(s.timeWaited);
+          curr->prev = wait->front;
           break;
         }
         else
@@ -104,7 +104,7 @@ void Statistics::takeIdle(int idly)
   //add to idle list//then add this to a list that orders based on value
   if (idle->front == NULL)
   {
-    idle->insertFront(s.timeWaited);
+    idle->insertFront(idly);
   }
   //this is the problem child
   else
@@ -116,7 +116,7 @@ void Statistics::takeIdle(int idly)
       {
         if (curr->next == NULL)
         {
-          curr->next = new ListNode(idly);
+          curr->next = new ListNode<int>(idly);
           curr->next->prev = curr;
           idle->size++;
           break;
@@ -126,10 +126,10 @@ void Statistics::takeIdle(int idly)
       }
       else
       {
-        if (curr == front || curr->prev = NULL)
+        if (curr == idle->front || curr->prev == NULL)
         {
-          curr->prev = insertFront(idly);
-          curr->prev = front;
+          idle->insertFront(idly);
+          curr->prev = idle->front;
           break;
         }
         else

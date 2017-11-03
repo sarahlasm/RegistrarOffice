@@ -44,8 +44,6 @@ ListNode<T>::~ListNode()
 template <class T>
 class DoublyLinkedList
 {
-private:
-  unsigned int size;
 public:
   ListNode<T>* front;
   ListNode<T>* back;
@@ -62,6 +60,7 @@ public:
   bool insertAfter(int pos, T val); //@TODO
   bool isEmpty();
   unsigned int getSize();
+  unsigned int size;
 };
 
 /**
