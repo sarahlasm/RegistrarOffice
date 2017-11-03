@@ -3,8 +3,6 @@
   - Keep track of all the data we need to.
   - Perform data analysis at the end.
   - Fix destructors.
-  - If there's a long wait time between two students, the program will keep reading the list.
-    Fix that.
   - Do students ever leave when they're done?
 */
 
@@ -48,11 +46,13 @@ int main(int argc, char** argv)
   Window *windows = new Window[numWindows];
   Student *s;
   Statistics* stats = new Statistics();
+  bool nextTimeSelected = false;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
   {
-    if (currInput != currTime) //beginning
+    if (currInput != currTime && !nextTimeSelected) //beginning
     {
+      nextTimeSelected = true;
       if (getline(inFile, input))
       {
       /*s = new Student(stoi(input));
@@ -69,6 +69,7 @@ int main(int argc, char** argv)
     }
     if (currTime == currInput) //hits 1
     {
+      nextTimeSelected = false;
       //currInput = -1;
       if (getline(inFile, input))
       {
