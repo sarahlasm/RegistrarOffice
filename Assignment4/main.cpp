@@ -96,7 +96,7 @@ int main(int argc, char** argv)
               studentQueue.insert(s);
               //windows[j].acceptStudent(studentQueue.remove());
               cout << "moon\n";
-              /*stats->takeIdle*/(windows[j].acceptStudent(studentQueue.remove()));
+              stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
               cout << "brains\n";
               break;
             }
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
       if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
       {
         cout << "Was he right to leave? " << (windows[i].student.timeNeeded) << " " << windows[i].student.timeServed << " " << currTime << endl;
-        /*stats->takeStudent*/(windows[i].studentLeaves()); //@TODO
+        stats->takeStudent(windows[i].studentLeaves()); //@TODO
         cout << "The time is " << currTime << " and a student has just left window " << i << endl;
       }
       if (!windows[i].isOccupied && !studentQueue.isEmpty())

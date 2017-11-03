@@ -56,7 +56,7 @@ Statistics::~Statistics()
 void Statistics::takeStudent(Student s)
 {
   studentsServed++;
-  totalStudentWaitTime += s.timeWaited;
+  increaseTotalWait(s.timeWaited);
   if (s.timeWaited > 5)
     numOverFive++;
   if (s.timeWaited > longestStudentWaitTime)
@@ -65,9 +65,10 @@ void Statistics::takeStudent(Student s)
   if (wait->front == NULL)
   {
     wait->insertFront(s.timeWaited);
+    cout << "Line 68\n";
   }
   //this is the problem child
-  else
+  /*else
   {
     while (true)//loop until we make a new node
     {
@@ -75,8 +76,10 @@ void Statistics::takeStudent(Student s)
       cout << "Woo pointer" << endl;
       if (curr->data <= s.timeWaited)
       {
+        cout << "if0\n";
         if (curr->next == NULL)
         {
+          cout << "if1\n";
           ListNode<int> *node = new ListNode<int>(s.timeWaited);
           curr->next = node;
           node->prev = curr;
@@ -84,12 +87,17 @@ void Statistics::takeStudent(Student s)
           break;
         }
         else
+        {
+          cout << "else\n";
           curr = curr->next;
+        }
       }
       else
       {
+        cout << "if2\n";
         if (curr == wait->front || curr->prev == NULL)
         {
+          cout << "if3\n";
           wait->insertFront(s.timeWaited);
           curr->prev = wait->front;
           break;
@@ -98,14 +106,14 @@ void Statistics::takeStudent(Student s)
           curr = curr->prev;
       }
     }
-  }
+  }*/
   cout << "Total wait time " << totalStudentWaitTime << endl;
   //delete &s;
 }
 
 void Statistics::takeIdle(int idly)
 {
-  totalIdleTime += idly;
+  increaseTotalIdle(idly);
   if (idly > 10)
     numOverTen++;
   if (longestIdleTime < idly)
@@ -135,6 +143,6 @@ void Statistics::printStats()
   cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
   cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
   cout << "Longest idle time: " << longestIdleTime << endl;
-  cout << "Mean idle time: " //FIND NUM windows
+  cout << "Mean idle time: "; //FIND NUM windows
   cout << "Number of windows idle over 5 minutes: " << numOverFive << endl;
 }
