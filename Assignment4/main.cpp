@@ -39,7 +39,7 @@ int main(int argc, char** argv)
   string fileName = argv[1];
   string input;
   ifstream inFile(fileName);
-  Queue<Student>* studentQueue = new Queue<Student>(20);
+  Queue<Student> studentQueue(20);// = new Queue<Student>(20);
   getline(inFile, input);
   int numWindows = stoi(input);
   int currTime = 0;
@@ -67,7 +67,7 @@ int main(int argc, char** argv)
       }
       else return 0;
     }
-    if (currTime == currInput) //hits 1
+    else if (currTime == currInput) //hits 1
     {
       nextTimeSelected = false;
       //currInput = -1;
@@ -77,23 +77,25 @@ int main(int argc, char** argv)
         for (int i = 0; i < stoi(input); ++i)
         {
           getline(inFile, studentInput);
-          Student* s = new Student(stoi(studentInput), stoi(input));
-          s->timeNeeded += currInput;
+          Student s(stoi(studentInput), stoi(input));
+          cout << s.timeNeeded;
+          cout << " " << s.timeEntered << endl;
           for (int j = 0; j <= numWindows; ++j)
           {
-            cout << j << " " << endl;
             if (j == numWindows)
             {
               cout << "The time is " << currTime << " and a new student is waiting in line.\n";
-              studentQueue->insert(*s);
+              studentQueue.insert(s);
               break;
             }
             if (!windows[j].isOccupied)
             {
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
-              studentQueue->insert(*s);
-              studentQueue->peek().setTimeWaited(currTime - studentQueue->peek().timeEntered);
-              stats->takeIdle(windows[j].acceptStudent(studentQueue->remove()));
+              s.setTimeServed(currTime);
+              s.setTimeWaited(currTime - s.timeEntered);
+              studentQueue.insert(s);
+              cout << studentQueue.peek().timeNeeded;
+              stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
               break;
             }
           }
@@ -110,13 +112,16 @@ int main(int argc, char** argv)
       for (int i = 0; i < numWindows; ++i)
       {
         //Student's time runs out, this is definitely sloppy
-        if (windows[i].isOccupied && windows[i].student->timeNeeded + windows[i].student->timeEntered == currTime)
+        if (currTime > 0)
+        cout << windows[0].student->timeNeeded << " " << windows[0].student->timeEntered << " " << currTime << endl;
+        if (windows[i].isOccupied && windows[i].student->timeNeeded + windows[i].student->timeServed == currTime)
         {
           stats->takeStudent(windows[i].studentLeaves());
+          cout << "The time is " << currTime << " and a student has just left window " << endl;
         }
-        if (!windows[i].isOccupied)
+        if (!windows[i].isOccupied && !studentQueue.isEmpty())
         {
-          stats->takeIdle(windows[i].acceptStudent((studentQueue->remove())));
+          stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
           break;
         }
       }
