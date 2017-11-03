@@ -63,23 +63,7 @@ void Statistics::takeStudent(Student s)
   if (s.timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = s.timeWaited;
   //then add this to a list that orders based on value
-  if (s.timeWaited >= wait->front || wait->front == NULL)
-  {
-    wait->insertFront(s.timeWaited);
-  }
-  else
-  {
-    ListNode<int> *node = new ListNode<int>(s.timeWaited)
-    ListNode<int> *curr = wait->front;
-    /*if (curr->next->data <= node->data)
-    {
-      node->next = curr->next;
-      node->prev = curr;
-      curr->next = node;
-    }*/
-  }
-  /*wait->insertFront(s.timeWaited);
-  cout << "Line 67" << endl;*/
+  wait->insertFront(s.timeWaited);
   cout << "Total wait time " << totalStudentWaitTime << endl;
   //delete &s;
 }
