@@ -97,12 +97,47 @@ void Statistics::takeStudent(Student s)
   //delete &s;
 }
 
-void Statistics::takeIdle(int idle)
+void Statistics::takeIdle(int idly)
 {
-  totalIdleTime += idle;
-  if (idle > 10)
+  totalIdleTime += idly;
+  if (idly > 10)
     numOverTen++;
-  //add to idle list
+  //add to idle list//then add this to a list that orders based on value
+  if (idle->front == NULL)
+  {
+    idle->insertFront(s.timeWaited);
+  }
+  //this is the problem child
+  else
+  {
+    while (true)//loop until we make a new node
+    {
+      ListNode<int> *curr = wait->front;
+      if (curr->data <= idly)
+      {
+        if (curr->next == NULL)
+        {
+          curr->next = new ListNode(idly);
+          curr->next->prev = curr;
+          idle->size++;
+          break;
+        }
+        else
+          curr = curr->next;
+      }
+      else
+      {
+        if (curr == front || curr->prev = NULL)
+        {
+          curr->prev = insertFront(idly);
+          curr->prev = front;
+          break;
+        }
+        else
+          curr = curr->prev;
+      }
+    }
+  }
 }
 
 double Statistics::calculateMeanStudWait(int times, int total)
