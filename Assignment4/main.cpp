@@ -106,13 +106,11 @@ int main(int argc, char** argv)
       }
       else return 0;
     }
-    while (!studentQueue->isEmpty())
-    {
 
       for (int i = 0; i < numWindows; ++i)
       {
         //Student's time runs out, this is definitely sloppy
-        if (windows[i].student->timeNeeded == currTime)
+        if (windows[i].isOccupied && windows[i].student->timeNeeded + windows[i].student->timeEntered == currTime)
         {
           stats->takeStudent(windows[i].studentLeaves());
         }
@@ -122,7 +120,8 @@ int main(int argc, char** argv)
           break;
         }
       }
-    }
+      cout << "Time " << currTime << endl;
+
     currTime++;
     cout << "I've reached the end of the loop! Hooray! xoxo\n";
   }
