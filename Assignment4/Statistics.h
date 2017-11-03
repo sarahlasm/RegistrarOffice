@@ -22,7 +22,6 @@ class Statistics
     int numOverTen;
     int studentsServed;
 
-    DoublyLinkedList<int> *idle;
     DoublyLinkedList<int> *wait;
 
     Statistics();
