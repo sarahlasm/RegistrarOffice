@@ -46,11 +46,13 @@ void Queue<T>::insert(T data)
     myQueue->insertFront(data);
     head = data;
     tail = data;
+    numElements++;
   }
   else if (!isFull())
   {
     myQueue->insertBack(data);
     tail = data;
+    numElements++;
   }
   else
     cerr << "Your queue is full. You cannot add more.\n";
@@ -62,13 +64,18 @@ T Queue<T>::remove()
   if (!isEmpty())
   {
     --numElements;
-    head = myQueue->front->data;
+    T temp = myQueue->front->data;
     myQueue->removeFront();
-    return head;
+    if (!isEmpty())
+    {
+      head = myQueue->front->data;
+    }
+    return temp;
   }
   else
   {
     cerr << "Your queue is empty. You cannot remove more.\n";
+    return *(new T);
   }
 }
 

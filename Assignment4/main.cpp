@@ -78,8 +78,8 @@ int main(int argc, char** argv)
         {
           getline(inFile, studentInput);
           Student s(stoi(studentInput), stoi(input));
-          cout << s.timeNeeded;
-          cout << " " << s.timeEntered << endl;
+          cout << "Line 81 " << s.timeNeeded << " " << s.timeEntered << endl;
+
           for (int j = 0; j <= numWindows; ++j)
           {
             if (j == numWindows)
@@ -94,8 +94,9 @@ int main(int argc, char** argv)
               s.setTimeServed(currTime);
               s.setTimeWaited(currTime - s.timeEntered);
               studentQueue.insert(s);
-              cout << studentQueue.peek().timeNeeded;
-              stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
+              cout << "Line 97 " << studentQueue.peek().timeNeeded << endl;
+              windows[j].acceptStudent(studentQueue.remove());
+              //stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
               break;
             }
           }
@@ -111,18 +112,16 @@ int main(int argc, char** argv)
 
       for (int i = 0; i < numWindows; ++i)
       {
+        cout << "Is " << i << "occupied? " << windows[i].isOccupied << endl;
         //Student's time runs out, this is definitely sloppy
-        if (currTime > 0)
-        cout << windows[0].student->timeNeeded << " " << windows[0].student->timeEntered << " " << currTime << endl;
-        if (windows[i].isOccupied && windows[i].student->timeNeeded + windows[i].student->timeServed == currTime)
+        if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
         {
           stats->takeStudent(windows[i].studentLeaves());
-          cout << "The time is " << currTime << " and a student has just left window " << endl;
+          cout << "The time is " << currTime << " and a student has just left window " << i << endl;
         }
         if (!windows[i].isOccupied && !studentQueue.isEmpty())
         {
           stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
-          break;
         }
       }
       cout << "Time " << currTime << endl;

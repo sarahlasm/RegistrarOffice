@@ -10,7 +10,7 @@ public:
   Student studentLeaves();
   int idleTime;
   //int timeDone;
-  Student* student;
+  Student student;
 };
 
 /**
@@ -20,14 +20,12 @@ Sets idle time to 0, isOccupied to false, and student to NULL
 Window::Window()
 {
   isOccupied = false;
-  student = NULL;
   idleTime = 0;
   //timeDone = -1;
 }
 
 Window::~Window()
 {
-  delete student;
 }
 
 /**
@@ -37,7 +35,7 @@ Returns idle time
 */
 int Window::acceptStudent(Student s)
 {
-  student = &s;
+  student = s;
   isOccupied = true;
   int temp = idleTime;
   idleTime = 0;
@@ -51,5 +49,5 @@ Student Window::studentLeaves()
 {
   //student = NULL;
   isOccupied = false;
-  return *student;
+  return student;
 }

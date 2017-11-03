@@ -82,7 +82,7 @@ void Statistics::takeStudent(Student s)
     }
   }
   cout << "Total wait time " << totalStudentWaitTime << endl;
-  delete &s;
+  //delete &s;
 }
 
 void Statistics::takeIdle(int idle)
