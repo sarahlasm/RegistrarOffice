@@ -50,25 +50,24 @@ int main(int argc, char** argv)
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
   {
+    cout << "Top of the looop\n";
     if (currInput != currTime && !nextTimeSelected) //beginning
     {
+      cout << "if1\n";
       nextTimeSelected = true;
       if (getline(inFile, input))
       {
-      /*s = new Student(stoi(input));
-      studentQueue->insert(*s);*/ //if the next tick is 1, this will make a student object with wait time 1.
         currInput = stoi(input);
-      //  cout << currInput;
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
-        currTime++;
-        break;
+    //    currTime++;
       }
       else return 0;
     }
     else if (currTime == currInput) //hits 1
     {
+      cout << "if2\n";
       nextTimeSelected = false;
       //currInput = -1;
       if (getline(inFile, input))
@@ -102,30 +101,34 @@ int main(int argc, char** argv)
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
-        cout << "This should print.\n";
+        cout << "if3\n";
         currTime++;
         break;
       }
       else
+      {
+        cout << "Cake";
         return 0;
 
-    }
-      for (int i = 0; i < numWindows; ++i)
-      {
-        cout << windows[i].isOccupied << endl;
-        cout << (windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) << endl;
-        //Student's time runs out, this is definitely sloppy
-        if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
-        {
-          /*stats->takeStudent(*/windows[i].studentLeaves(); //@TODO
-          cout << "The time is " << currTime << " and a student has just left window " << i << endl;
-        }
-        if (!windows[i].isOccupied && !studentQueue.isEmpty())
-        {
-          stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
-        }
       }
-      cout << "This is the end of time " << currTime << endl;
+
+    }
+    if (currTime == 20) return -1;
+    for (int i = 0; i < numWindows; ++i)
+    {
+      cout << "Is it time for the student to go? " << (windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) << endl;
+      //Student's time runs out, this is definitely sloppy
+      if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
+      {
+        /*stats->takeStudent(*/windows[i].studentLeaves(); //@TODO
+        cout << "The time is " << currTime << " and a student has just left window " << i << endl;
+      }
+      if (!windows[i].isOccupied && !studentQueue.isEmpty())
+      {
+        stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
+      }
+    }
+    cout << "This is the end of time " << currTime << endl;
 
     currTime++;
   }
