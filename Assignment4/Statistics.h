@@ -93,8 +93,8 @@ void Statistics::takeStudent(Student s)
     }
   }
   cout << "Total wait time " << totalStudentWaitTime << endl;
-  //delete &s;
-}*/
+  //delete &s;*/
+}
 
 void Statistics::takeIdle(int idly)
 {
@@ -136,8 +136,8 @@ void Statistics::takeIdle(int idly)
           curr = curr->prev;
       }
     }
-  }
-}*/
+  }*/
+}
 
 double Statistics::calculateMean(int times, int total)
 {

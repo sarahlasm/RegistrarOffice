@@ -92,9 +92,12 @@ int main(int argc, char** argv)
               s.setTimeServed(currTime);
               cout << "Student has been served at time " << s.timeServed << endl;
               s.setTimeWaited(currTime - s.timeEntered);
+              cout << "cake\n";
               studentQueue.insert(s);
               //windows[j].acceptStudent(studentQueue.remove());
-              stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
+              cout << "moon\n";
+              /*stats->takeIdle*/(windows[j].acceptStudent(studentQueue.remove()));
+              cout << "brains\n";
               break;
             }
           }
@@ -123,19 +126,19 @@ int main(int argc, char** argv)
       //Student's time runs out, this is definitely sloppy
       if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
       {
-        cout << "Time Needed: " << windows[i].student.timeNeeded << " \nTime Served: " << windows[i].student.timeNeeded;
-        /*stats->takeStudent(*/windows[i].studentLeaves(); //@TODO
+        cout << "Was he right to leave? " << (windows[i].student.timeNeeded) << " " << windows[i].student.timeServed << " " << currTime << endl;
+        /*stats->takeStudent*/(windows[i].studentLeaves()); //@TODO
         cout << "The time is " << currTime << " and a student has just left window " << i << endl;
       }
       if (!windows[i].isOccupied && !studentQueue.isEmpty())
       {
         cout << "The time is " << currTime << " and a student in line has just gone to window " << i << endl;
         cout << "Current time: " << currTime << endl;
-        s2 = studentQueue.peek();
+        s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
         cout << "Student has been served at time " << s2.timeServed << endl;
         s2.setTimeWaited(currTime - s2.timeEntered);
-        stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
+        stats->takeIdle(windows[i].acceptStudent(s2));
       }
     }
     cout << "This is the end of time " << currTime << endl;
