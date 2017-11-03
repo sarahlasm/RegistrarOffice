@@ -31,6 +31,7 @@ class Statistics
     double calculateMean(int times, int total);
     void increaseTotalWait(int t);
     void increaseTotalIdle(int t);
+    int findMedian(DoublyLinkedList<int> w);
     /*void setTotalIdleTime(int t);
     void setNumOverFive(int num);
     void setNumStudents(int num);
@@ -59,7 +60,7 @@ void Statistics::takeStudent(Student s)
   cout << "This student had waited: " << s.timeWaited << endl;
   increaseTotalWait(s.timeWaited);
   if (s.timeWaited > 5)
-    numOverFive++;
+    numOverTen++;
   if (s.timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = s.timeWaited;
   //then add this to a list that orders based on value
@@ -72,7 +73,7 @@ void Statistics::takeIdle(int idly)
 {
   increaseTotalIdle(idly);
   if (idly > 10)
-    numOverTen++;
+    numOverFive++;
   if (longestIdleTime < idly)
     longestIdleTime = idly;
 }
@@ -92,10 +93,20 @@ double Statistics::calculateMean(int times, int total)
   return (double)total/(double)times;
 }
 
+/*int findMedian(DoublyLinkedList<int> w)
+{
+  ListNode<int> *curr = w->front;
+  ListNode<int> *temp;
+  while (curr !=  NULL)
+  {
+
+  }
+}*/
+
 void Statistics::printStats()
 {
   cout << "STATISTICS: " << endl;
-  cout << "Median student wait time" << endl;
+  cout << "Median student wait time: " << findMedian(wait) << endl;
   cout << "Longest student wait time: " << longestStudentWaitTime << endl;
   cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
   cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
