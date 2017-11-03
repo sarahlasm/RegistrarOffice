@@ -30,6 +30,8 @@ class Statistics
     void takeStudent(Student s);
     void takeIdle(int idle);
     double calculateMean(int times, int total);
+    void increaseTotalWait(int t);
+    void increaseTotalIdle(int t);
     /*void setTotalIdleTime(int t);
     void setNumOverFive(int num);
     void setNumStudents(int num);
@@ -39,10 +41,12 @@ class Statistics
 
 Statistics::Statistics()
 {
-  idle = new DoublyLinkedList<int>();
   wait = new DoublyLinkedList<int>();
   studentsServed = 0;
   totalStudentWaitTime = 0;
+  totalIdleTime = 0;
+  longestIdleTime = 0;
+  longestStudentWaitTime = 0;
 }
 
 Statistics::~Statistics()
@@ -56,23 +60,27 @@ void Statistics::takeStudent(Student s)
   totalStudentWaitTime += s.timeWaited;
   if (s.timeWaited > 5)
     numOverFive++;
+  if (s.timeWaited > longestStudentWaitTime)
+    longestStudentWaitTime = s.timeWaited;
   //then add this to a list that orders based on value
   if (wait->front == NULL)
   {
     wait->insertFront(s.timeWaited);
   }
   //this is the problem child
-  /*else
+  else
   {
     while (true)//loop until we make a new node
     {
       ListNode<int> *curr = wait->front;
+      cout << "Woo pointer" << endl;
       if (curr->data <= s.timeWaited)
       {
         if (curr->next == NULL)
         {
-          curr->next = new ListNode<int>(s.timeWaited);
-          curr->next->prev = curr;
+          ListNode<int> *node = new ListNode<int>(s.timeWaited);
+          curr->next = node;
+          node->prev = curr;
           wait->size++;
           break;
         }
@@ -81,7 +89,7 @@ void Statistics::takeStudent(Student s)
       }
       else
       {
-        if ((curr == wait->front || curr->prev == NULL))
+        if (curr == wait->front || curr->prev == NULL)
         {
           wait->insertFront(s.timeWaited);
           curr->prev = wait->front;
@@ -93,7 +101,7 @@ void Statistics::takeStudent(Student s)
     }
   }
   cout << "Total wait time " << totalStudentWaitTime << endl;
-  //delete &s;*/
+  //delete &s;
 }
 
 void Statistics::takeIdle(int idly)
@@ -101,42 +109,18 @@ void Statistics::takeIdle(int idly)
   totalIdleTime += idly;
   if (idly > 10)
     numOverTen++;
-  //add to idle list//then add this to a list that orders based on value
-  if (idle->front == NULL)
-  {
-    idle->insertFront(idly);
-  }
-  //this is the problem child
-  /*else
-  {
-    while (true)//loop until we make a new node
-    {
-      ListNode<int> *curr = wait->front;
-      if (curr->data <= idly)
-      {
-        if (curr->next == NULL)
-        {
-          curr->next = new ListNode<int>(idly);
-          curr->next->prev = curr;
-          idle->size++;
-          break;
-        }
-        else
-          curr = curr->next;
-      }
-      else
-      {
-        if (curr == idle->front || curr->prev == NULL)
-        {
-          idle->insertFront(idly);
-          curr->prev = idle->front;
-          break;
-        }
-        else
-          curr = curr->prev;
-      }
-    }
-  }*/
+  if (longestIdleTime < idly)
+    longestIdleTime = idly;
+}
+
+void Statistics::increaseTotalIdle(int t)
+{
+  totalIdleTime += t;
+}
+
+void Statistics::increaseTotalWait(int t)
+{
+  totalStudentWaitTime += t;
 }
 
 double Statistics::calculateMean(int times, int total)
@@ -146,5 +130,12 @@ double Statistics::calculateMean(int times, int total)
 
 void Statistics::printStats()
 {
-
+  cout << "STATISTICS: " << endl;
+  cout << "Median student wait time" << endl;
+  cout << "Longest student wait time: " << longestStudentWaitTime << endl;
+  cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
+  cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
+  cout << "Longest idle time: " << longestIdleTime << endl;
+  cout << "Mean idle time: " //FIND NUM windows
+  cout << "Number of windows idle over 5 minutes: " << numOverFive << endl;
 }
