@@ -56,25 +56,30 @@ Statistics::~Statistics()
 void Statistics::takeStudent(Student s)
 {
   studentsServed++;
-  //cout << "This student had waited: " << s.timeWaited << endl;
+  cout << "This student had waited: " << s.timeWaited << endl;
   increaseTotalWait(s.timeWaited);
   if (s.timeWaited > 5)
     numOverFive++;
   if (s.timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = s.timeWaited;
   //then add this to a list that orders based on value
-  if (wait->front == NULL)
+  wait->insertFront(s.timeWaited);
+  cout << "Line 67" << endl;
+  /*if (wait->front == NULL)
   {
     wait->insertFront(s.timeWaited);
     cout << "Line 68\n";
   }
   //this is the problem child
-  else
+  /*else
   {
-    while (true)//loop until we make a new node
+    ListNode<int> *node = new ListNode<int>(s.timeWaited);
+    wait->insertFront(s.timeWaited
+    /*while (true)//loop until we make a new node
     {
       ListNode<int> *curr = wait->front;
-      if (curr->data <= s.timeWaited)
+      ListNode<int> *node = new ListNode<int>(s.timeWaited);
+      /*if (curr->data <= node->data)
       {
         cout << "if0\n";
         if (curr->next == NULL || curr->next == front)
@@ -106,7 +111,7 @@ void Statistics::takeStudent(Student s)
           curr = curr->prev;
       }
     }
-  }
+  }*/
   cout << "Total wait time " << totalStudentWaitTime << endl;
   //delete &s;
 }
