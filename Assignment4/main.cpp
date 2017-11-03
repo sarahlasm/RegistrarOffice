@@ -46,7 +46,7 @@ int main(int argc, char** argv)
   Window *windows = new Window[numWindows];
   Student *s;
   Student s2;
-  Statistics* stats = new Statistics();
+  Statistics* stats = new Statistics(numWindows);
   bool nextTimeSelected = false;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
@@ -63,7 +63,11 @@ int main(int argc, char** argv)
       {
     //    currTime++;
       }
-      else return 0;
+      else
+      {
+        stats->printStats();
+        return 0;
+      }
     }
     if (currTime == currInput) //hits 1
     {
@@ -111,6 +115,7 @@ int main(int argc, char** argv)
       }
       else if (allWindowsEmpty(windows, numWindows) )
       {
+        stats->printStats();
         return 0;
 
       }
@@ -118,6 +123,7 @@ int main(int argc, char** argv)
     }
     else if (allWindowsEmpty(windows, numWindows) && currInput < currTime)
     {
+      stats->printStats();
       return 0;
     }
     for (int i = 0; i < numWindows; ++i)
