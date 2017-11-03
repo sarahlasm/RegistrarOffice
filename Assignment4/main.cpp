@@ -78,7 +78,6 @@ int main(int argc, char** argv)
         {
           getline(inFile, studentInput);
           Student s(stoi(studentInput), stoi(input));
-          cout << "Line 81 " << s.timeNeeded << " " << s.timeEntered << endl;
 
           for (int j = 0; j <= numWindows; ++j)
           {
@@ -94,9 +93,8 @@ int main(int argc, char** argv)
               s.setTimeServed(currTime);
               s.setTimeWaited(currTime - s.timeEntered);
               studentQueue.insert(s);
-              cout << "Line 97 " << studentQueue.peek().timeNeeded << endl;
-              windows[j].acceptStudent(studentQueue.remove());
-              //stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
+              //windows[j].acceptStudent(studentQueue.remove());
+              stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
               break;
             }
           }
@@ -104,19 +102,22 @@ int main(int argc, char** argv)
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
+        cout << "This should print.\n";
         currTime++;
         break;
       }
-      else return 0;
-    }
+      else
+        return 0;
 
+    }
       for (int i = 0; i < numWindows; ++i)
       {
-        cout << "Is " << i << "occupied? " << windows[i].isOccupied << endl;
+        cout << windows[i].isOccupied << endl;
+        cout << (windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) << endl;
         //Student's time runs out, this is definitely sloppy
         if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
         {
-          stats->takeStudent(windows[i].studentLeaves());
+          /*stats->takeStudent(*/windows[i].studentLeaves(); //@TODO
           cout << "The time is " << currTime << " and a student has just left window " << i << endl;
         }
         if (!windows[i].isOccupied && !studentQueue.isEmpty())
@@ -124,9 +125,8 @@ int main(int argc, char** argv)
           stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
         }
       }
-      cout << "Time " << currTime << endl;
+      cout << "This is the end of time " << currTime << endl;
 
     currTime++;
-    cout << "I've reached the end of the loop! Hooray! xoxo\n";
   }
 }
