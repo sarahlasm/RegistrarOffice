@@ -59,7 +59,7 @@ void Statistics::takeStudent(Student s)
   studentsServed++;
   cout << "This student had waited: " << s.timeWaited << endl;
   increaseTotalWait(s.timeWaited);
-  if (s.timeWaited > 5)
+  if (s.timeWaited > 10)
     numOverTen++;
   if (s.timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = s.timeWaited;
@@ -72,7 +72,7 @@ void Statistics::takeStudent(Student s)
 void Statistics::takeIdle(int idly)
 {
   increaseTotalIdle(idly);
-  if (idly > 10)
+  if (idly > 5)
     numOverFive++;
   if (longestIdleTime < idly)
     longestIdleTime = idly;
