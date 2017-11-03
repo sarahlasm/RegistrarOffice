@@ -45,6 +45,7 @@ int main(int argc, char** argv)
   int currTime = 0;
   Window *windows = new Window[numWindows];
   Student *s;
+  Student s2;
   Statistics* stats = new Statistics();
   bool nextTimeSelected = false;
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
@@ -89,6 +90,7 @@ int main(int argc, char** argv)
             {
               cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
               s.setTimeServed(currTime);
+              cout << "Student has been served at time " << s.timeServed << endl;
               s.setTimeWaited(currTime - s.timeEntered);
               studentQueue.insert(s);
               //windows[j].acceptStudent(studentQueue.remove());
@@ -121,12 +123,18 @@ int main(int argc, char** argv)
       //Student's time runs out, this is definitely sloppy
       if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
       {
+        cout << "Time Needed: " << windows[i].student.timeNeeded << " \nTime Served: " << windows[i].student.timeNeeded;
         /*stats->takeStudent(*/windows[i].studentLeaves(); //@TODO
         cout << "The time is " << currTime << " and a student has just left window " << i << endl;
       }
       if (!windows[i].isOccupied && !studentQueue.isEmpty())
       {
         cout << "The time is " << currTime << " and a student in line has just gone to window " << i << endl;
+        cout << "Current time: " << currTime << endl;
+        s2 = studentQueue.peek();
+        s2.setTimeServed(currTime);
+        cout << "Student has been served at time " << s2.timeServed << endl;
+        s2.setTimeWaited(currTime - s2.timeEntered);
         stats->takeIdle(windows[i].acceptStudent((studentQueue.remove())));
       }
     }
