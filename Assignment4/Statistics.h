@@ -26,6 +26,7 @@ class Statistics
     DoublyLinkedList<int> *wait;
 
     Statistics();
+    Statistics(int n);
     ~Statistics();
     void takeStudent(Student s);
     void takeIdle(int idle);
