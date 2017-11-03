@@ -29,8 +29,7 @@ class Statistics
     ~Statistics();
     void takeStudent(Student s);
     void takeIdle(int idle);
-    double calculateMeanStudWait(int times, int total);
-    double calculateMeanWindowIdle(int times, int total);
+    double calculateMean(int times, int total);
     /*void setTotalIdleTime(int t);
     void setNumOverFive(int num);
     void setNumStudents(int num);
@@ -62,22 +61,34 @@ void Statistics::takeStudent(Student s)
   {
     wait->insertFront(s.timeWaited);
   }
+  //this is the problem child
   else
   {
-    ListNode<int> *curr = wait->front;
-    while(true)
+    while (true)//loop until we make a new node
     {
+      ListNode<int> *curr = wait->front;
       if (curr->data <= s.timeWaited)
       {
-        curr->next = new ListNode<int>(s.timeWaited);
-        curr = curr->next;
-      }
-      else if (curr->data > s.timeWaited)
-      {
-        if (curr == wait->front)
+        if (curr->next == NULL)
         {
-
+          curr->next = new ListNode(s.timeWaited);
+          curr->next->prev = curr;
+          wait->size++;
+          break;
         }
+        else
+          curr = curr->next;
+      }
+      else
+      {
+        if (curr == front || curr->prev = NULL)
+        {
+          curr->prev = insertFront(s.timeWaited);
+          curr->prev = front;
+          break;
+        }
+        else
+          curr = curr->prev;
       }
     }
   }
@@ -85,22 +96,52 @@ void Statistics::takeStudent(Student s)
   //delete &s;
 }
 
-void Statistics::takeIdle(int idle)
+void Statistics::takeIdle(int idly)
 {
-  totalIdleTime += idle;
-  if (idle > 10)
+  totalIdleTime += idly;
+  if (idly > 10)
     numOverTen++;
-  //add to idle list
+  //add to idle list//then add this to a list that orders based on value
+  if (idle->front == NULL)
+  {
+    idle->insertFront(s.timeWaited);
+  }
+  //this is the problem child
+  else
+  {
+    while (true)//loop until we make a new node
+    {
+      ListNode<int> *curr = wait->front;
+      if (curr->data <= idly)
+      {
+        if (curr->next == NULL)
+        {
+          curr->next = new ListNode(idly);
+          curr->next->prev = curr;
+          idle->size++;
+          break;
+        }
+        else
+          curr = curr->next;
+      }
+      else
+      {
+        if (curr == front || curr->prev = NULL)
+        {
+          curr->prev = insertFront(idly);
+          curr->prev = front;
+          break;
+        }
+        else
+          curr = curr->prev;
+      }
+    }
+  }
 }
 
-double Statistics::calculateMeanStudWait(int times, int total)
+double Statistics::calculateMean(int times, int total)
 {
-  return 0; //so it compiles
-}
-
-double Statistics::calculateMeanWindowIdle(int times, int total)
-{
-  return 0; //so it compiles
+  return (double)total/(double)times;
 }
 
 void Statistics::printStats()
